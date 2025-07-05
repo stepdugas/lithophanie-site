@@ -174,4 +174,14 @@ nav a:hover {
   .order-form-flex label {
     font-weight: 600;
   }
+  .address-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .address-row div {
+    flex: 1;
+    min-width: 120px;
+  }
   
