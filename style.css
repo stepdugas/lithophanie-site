@@ -45,7 +45,8 @@ header {
 nav ul {
   list-style: none;
   display: flex;
-  gap: 20px;
+  flex-direction: column;
+  gap: 10px;
 }
 nav a {
   text-decoration: none;
@@ -67,11 +68,11 @@ nav a:hover {
   text-align: center;
 }
 .hero-content h1 {
-  font-size: 3rem;
+  font-size: 2.25rem;
   margin-bottom: 1rem;
 }
 .hero-content p {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   max-width: 600px;
   margin: 0 auto 2rem;
 }
@@ -83,6 +84,7 @@ nav a:hover {
   border: none;
   border-radius: 8px;
   transition: all 0.3s ease;
+  font-size: 1rem;
 }
 .cta-button:hover {
   background-color: #27ae60;
@@ -91,15 +93,15 @@ nav a:hover {
 
 /* Section Styling */
 .section {
-  padding: 80px 20px;
+  padding: 60px 20px;
   text-align: center;
 }
 .section h2 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   margin-bottom: 0.5rem;
 }
 .section p {
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: #666;
   margin-bottom: 2rem;
   max-width: 600px;
@@ -129,59 +131,111 @@ nav a:hover {
   transform: translateY(0);
 }
 
+/* Contact Form */
 .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    max-width: 500px;
-    margin: 0 auto;
-    text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: left;
+}
+.contact-form input,
+.contact-form textarea {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+}
+.contact-form label {
+  font-weight: 600;
+}
+
+/* Order Form */
+.order-form-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+  max-width: 900px;
+  margin: 0 auto;
+  margin-top: 40px;
+}
+.form-left,
+.form-right {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.order-form-flex input,
+.order-form-flex textarea {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+}
+.order-form-flex label {
+  font-weight: 600;
+}
+.address-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.address-row div {
+  flex: 1;
+  min-width: 120px;
+}
+
+/* Responsive Layouts */
+@media (min-width: 600px) {
+  nav ul {
+    flex-direction: row;
+    gap: 30px;
   }
-  .contact-form input,
-  .contact-form textarea {
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    font-family: inherit;
-  }
-  .contact-form label {
-    font-weight: 600;
-  }
+
   .order-form-flex {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 40px;
-    justify-content: center;
-    max-width: 900px;
-    margin: 0 auto;
-    margin-top: 40px;
+    flex-direction: row;
+    gap: 30px;
   }
+
   .form-left,
   .form-right {
-    flex: 1;
-    min-width: 300px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+    width: 50%;
   }
-  .order-form-flex input,
-  .order-form-flex textarea {
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    font-family: inherit;
+
+  .samples-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
-  .order-form-flex label {
-    font-weight: 600;
+}
+
+@media (min-width: 1024px) {
+  .samples-grid {
+    grid-template-columns: repeat(4, 1fr);
   }
-  .address-row {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
+
+  .hero-content h1 {
+    font-size: 3rem;
   }
-  
-  .address-row div {
-    flex: 1;
-    min-width: 120px;
+
+  .cta-button {
+    font-size: 1.2rem;
+    padding: 12px 30px;
   }
-  
+}
+
+/* Utility */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+input,
+textarea,
+button {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
