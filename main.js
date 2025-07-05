@@ -14,3 +14,19 @@ document.addEventListener("DOMContentLoaded", () => {
     images.forEach(img => observer.observe(img));
   });
   
+  const stripe = Stripe("pk_live_51RhaxoEww7sCUoLO2LKbQTajW2LgjYyxAukYAkYRy83PxQfutBKchoVWRLlGnKDsyqlckg3OX1vkISvCseOfHoLi00Q0TQnmxo"); 
+
+document.getElementById("checkout-button").addEventListener("click", () => {
+  stripe.redirectToCheckout({
+    lineItems: [
+      { price: "price_1RhbB6Eww7sCUoLOp3DrEQcm", quantity: 1 }
+    ],
+    mode: "payment",
+    successUrl: "https://stepdugas.github.io/lithophanie-site/success.html",
+    cancelUrl: "https://stepdugas.github.io/lithophanie-site/cancel.html",
+  }).then(function (result) {
+    if (result.error) {
+      alert(result.error.message);
+    }
+  });
+});

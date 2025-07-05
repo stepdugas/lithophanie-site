@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lithophane Light</title>
+  <script src="https://js.stripe.com/v3/"></script>
+
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -40,6 +42,60 @@
         <img src="images/sample4.jpg" alt="Lithophane 4">
       </div>
     </section>
+    <section id="order" class="section">
+        <h2>Place Your Order</h2>
+        <p>Order your custom 3D printed lithophane for just <strong>$19.99</strong> plus shipping.</p>
+      
+        <form class="order-form" action="#" method="post">
+          <label for="imageUpload">Upload your photo:</label>
+          <input type="file" id="imageUpload" accept="image/*" required />
+      
+          <label for="name">Full Name:</label>
+          <input type="text" id="name" required />
+      
+          <label for="email">Email:</label>
+          <input type="email" id="email" required />
+      
+          <label for="address">Shipping Address:</label>
+          <textarea id="address" rows="3" required></textarea>
+      
+          <!-- Future options area (hidden for now) -->
+          <div class="future-options" style="display: none;">
+            <label>Add-ons:</label>
+            <label><input type="checkbox" name="addons" value="tea-light"> Tea Light (+$5)</label>
+            <label><input type="checkbox" name="addons" value="frame"> Frame (+$8)</label>
+            <label><input type="checkbox" name="addons" value="stand"> Stand (+$4)</label>
+          </div>
+      
+          <button id="checkout-button" class="cta-button">Place Order – $19.99</button>
+
+        </form>
+      </section>
+
+      <section id="contact" class="section">
+        <h2>Contact Us</h2>
+        <p>Have a question before you order? Send us a message and we’ll get back to you soon.</p>
+      
+        <form class="contact-form" action="https://formsubmit.co/LithophanePrints@gmail.com" method="POST">
+          <label for="contact-name">Name:</label>
+          <input type="text" id="contact-name" name="name" required />
+      
+          <label for="contact-email">Email:</label>
+          <input type="email" id="contact-email" name="email" required />
+      
+          <label for="message">Message:</label>
+          <textarea id="message" name="message" rows="4" required></textarea>
+      
+          <!-- Protect from spam -->
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+      
+          <button type="submit" class="cta-button">Send Message</button>
+        </form>
+      </section>
+      
+      
+
   </main>
 
   <script src="js/main.js"></script>
