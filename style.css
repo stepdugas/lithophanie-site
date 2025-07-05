@@ -147,4 +147,31 @@ nav a:hover {
   .contact-form label {
     font-weight: 600;
   }
+  .order-form-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
+    max-width: 900px;
+    margin: 0 auto;
+    margin-top: 40px;
+  }
+  .form-left,
+  .form-right {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .order-form-flex input,
+  .order-form-flex textarea {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-family: inherit;
+  }
+  .order-form-flex label {
+    font-weight: 600;
+  }
   
