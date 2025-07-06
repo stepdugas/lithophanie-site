@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Order – Lithophane Prints</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://js.stripe.com/v3/"></script>
+  <script defer src="order.js"></script>
 </head>
 <body>
   <header>
@@ -13,68 +13,49 @@
       <h1>Lithophane Prints</h1>
       <nav>
         <ul>
-          <li><a href="index.html" target="_blank">Home</a></li>
-          <li><a href="shop.html" target="_blank">Shop</a></li>
-          <li><a href="order.html" target="_blank">Order</a></li>
-          <li><a href="contact.html" target="_blank">Contact</a></li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="order.html">Order</a></li>
+          <li><a href="contact.html">Contact</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
   <main>
-    <section id="order" class="section">
-      <h2>Place Your Order</h2>
-      <p>Upload your photo and enter your details to order your custom lithophane.</p>
-
-      <form class="order-form-flex" action="#" method="post">
+    <section class="section">
+      <h2>Customize Your Order</h2>
+      <form id="order-form" class="order-form-flex">
         <div class="form-left">
+          <label for="product">Product:</label>
+          <select id="product" required>
+            <option value="frame">Framed Print – $29.99</option>
+            <option value="nightlight">Nightlight Print – $24.99</option>
+            <option value="tealight">Tea Light Stand – $22.99</option>
+            <option value="box">Box Lamp – $39.99</option>
+          </select>
+
+          <label>
+            <input type="checkbox" id="colorUpgrade" /> Color Photo Upgrade (+$5 or +$10)
+          </label>
+
+          <label for="quantity">Quantity:</label>
+          <input type="number" id="quantity" value="1" min="1" required />
+
           <label for="imageUpload">Upload your photo:</label>
           <input type="file" id="imageUpload" accept="image/*" required />
 
-          <label for="name">Full Name:</label>
-          <input type="text" id="name" required />
-
-          <label for="email">Email:</label>
-          <input type="email" id="email" required />
-        </div>
-
-        <div class="form-right">
-            <label for="street">Street Address:</label>
-            <input type="text" id="street" name="street" required />
-            
-            <div class="address-row">
-              <div>
-                <label for="city">City:</label>
-                <input type="text" id="city" name="city" required />
-              </div>
-            
-              <div>
-                <label for="state">State:</label>
-                <input type="text" id="state" name="state" maxlength="2" placeholder="e.g. OH" required />
-              </div>
-            
-              <div>
-                <label for="zip">ZIP Code:</label>
-                <input type="text" id="zip" name="zip" pattern="\d{5}" maxlength="5" required />
-              </div>
-            </div>
-            
-
-          <!-- Future Add-ons (hidden for now) -->
-          <div class="future-options" style="display: none;">
-            <label>Add-ons:</label>
-            <label><input type="checkbox" name="addons" value="tea-light"> Tea Light (+$5)</label>
-            <label><input type="checkbox" name="addons" value="frame"> Frame (+$8)</label>
-            <label><input type="checkbox" name="addons" value="stand"> Stand (+$4)</label>
-          </div>
-
-          <button id="checkout-button" class="cta-button">Place Order – $19.99</button>
+          <button type="submit" class="cta-button">Add to Cart</button>
         </div>
       </form>
     </section>
-  </main>
 
-  <script src="js/main.js"></script>
+    <section class="section">
+      <h2>Your Cart</h2>
+      <ul id="cart-items"></ul>
+      <p><strong>Total:</strong> $<span id="cart-total">0.00</span></p>
+      <button id="checkout-button" class="cta-button">Checkout with Stripe</button>
+    </section>
+  </main>
 </body>
 </html>
