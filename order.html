@@ -6,6 +6,12 @@
   <title>Order – Lithophane Prints</title>
   <link rel="stylesheet" href="style.css" />
   <script defer src="order.js"></script>
+  <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>
+    (function () {
+      emailjs.init("8IvXP0jnH2z1KWvaN"); // your public EmailJS key
+    })();
+  </script>
 </head>
 <body>
   <header>
@@ -27,6 +33,13 @@
       <h2>Customize Your Order</h2>
       <form id="order-form" class="order-form-flex">
         <div class="form-left">
+
+          <label for="name">Your Name:</label>
+          <input type="text" id="name" required />
+
+          <label for="email">Your Email:</label>
+          <input type="email" id="email" required />
+
           <label for="product">Product:</label>
           <select id="product" required>
             <option value="frame">Framed Print – $29.99</option>
@@ -54,6 +67,8 @@
       <h2>Your Cart</h2>
       <ul id="cart-items"></ul>
       <p><strong>Total:</strong> $<span id="cart-total">0.00</span></p>
+      <small style="color: #555;">Shipping is included in the price.</small>
+
       <button id="checkout-button" class="cta-button">Checkout with Stripe</button>
     </section>
   </main>
