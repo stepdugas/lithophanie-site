@@ -93,7 +93,8 @@ document.addEventListener("DOMContentLoaded", () => {
     formData.append("quantity", quantity);
     formData.append("file", imageFile);
 
-    await emailjs.sendForm("service_dtd8eds", "template_39za7zn", formData);
+    await emailjs.sendForm("service_dtd8eds", "template_39za7zn", orderForm);
+
 
     // Add to localStorage cart
     const cart = getCart();
@@ -109,8 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
       quantity: item.quantity
     }));
 
-    localStorage.removeItem("cart");
-
+    
    stripe.redirectToCheckout({
   lineItems,
   mode: "payment",
