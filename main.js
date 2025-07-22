@@ -22,47 +22,39 @@ function getCart() {
   return JSON.parse(localStorage.getItem("cart")) || [];
 }
 
-function getStripePriceId(product, color) {
-  const priceMap = {
-    "Framed Print": {
-      classic: "price_1RhvHxEww7sCUoLOG0ClrTvX",
-      color: "price_1RhvLrEww7sCUoLOJpaR6ri8",
-    },
-    "Nightlight Print": {
-      classic: "price_1RhvMZEww7sCUoLOMwoRtZbi",
-      color: "price_1RhvNQEww7sCUoLOVcvRC4lG",
-    },
-    "Tea Light Stand": {
-      classic: "price_1RhvP1Eww7sCUoLOC6OV6srR",
-      color: "price_1RhvPXEww7sCUoLOCiR5lpRo",
-    },
-    "Box Lamp": {
-      classic: "price_1RhvQEEww7sCUoLOM0j6PNs3",
-      color: "price_1RhvQnEww7sCUoLOe92GDUUA",
-    }
-  };
-  return priceMap[product][color ? "color" : "classic"];
+function saveCart(cart) {
+  localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+// Map current 4 products to Stripe price IDs
+function getStripePriceId(product) {
+  const priceMap = {
+    "Regular Lithophane – 4x6": "price_1RnkYZEww7sCUoLOqoPDwc9x",
+    "Regular Lithophane – 5x7": "price_1RnkZ2Eww7sCUoLO76QRCkhP",
+    "LED Box Stand – 4x6": "price_1RnkXpEww7sCUoLOU8dsVQCf",
+    "LED Box Stand – 5x7": "price_1RnkY8Eww7sCUoLOEoInHGO7"
+  };
+  return priceMap[product];
+}
+
+function renderCart() {
   const cartList = document.getElementById("cart-items");
   const totalEl = document.getElementById("cart-total");
-  const checkoutBtn = document.getElementById("checkout-button");
-
-  // If we’re not on the cart page, don’t run this part
-  if (!cartList || !totalEl || !checkoutBtn) return;
+  if (!cartList || !totalEl) return;
 
   const cart = getCart();
+  cartList.innerHTML = "";
   let total = 0;
 
   cart.forEach((item, index) => {
-    const itemTotal = (item.price + (item.color ? item.colorPrice : 0)) * item.quantity;
+    const itemTotal = item.price * item.quantity;
     total += itemTotal;
 
     const li = document.createElement("li");
     li.innerHTML = `
-      <strong>${item.product}</strong> – ${item.color ? "Color" : "Classic"}<br>
-      Quantity: ${item.quantity}
+      <strong>${item.product}</strong><br>
+      Quantity: ${item.quantity} – $${item.price.toFixed(2)} each 
+      <button class="remove-btn" data-index="${index}">Remove</button>
       <hr>
     `;
     cartList.appendChild(li);
@@ -70,21 +62,49 @@ document.addEventListener("DOMContentLoaded", () => {
 
   totalEl.textContent = total.toFixed(2);
 
-  checkoutBtn.addEventListener("click", () => {
-    const lineItems = cart.map(item => ({
-      price: getStripePriceId(item.product, item.color),
-      quantity: item.quantity
-    }));
-
-    stripe.redirectToCheckout({
-      lineItems,
-      mode: "payment",
-      successUrl: "https://orderlithophaneprints.com/success.html",
-      cancelUrl: "https://orderlithophaneprints.com/cart.html"
-    }).then(result => {
-      if (result.error) {
-        alert(result.error.message);
-      }
+  // Attach event listeners for "Remove" buttons
+  document.querySelectorAll(".remove-btn").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      const index = parseInt(e.target.getAttribute("data-index"));
+      removeCartItem(index);
     });
   });
+}
+
+function removeCartItem(index) {
+  const cart = getCart();
+  cart.splice(index, 1);
+  saveCart(cart);
+  renderCart();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderCart();
+
+  const checkoutBtn = document.getElementById("checkout-button");
+  if (checkoutBtn) {
+    checkoutBtn.addEventListener("click", () => {
+      const cart = getCart();
+      if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
+
+      const lineItems = cart.map(item => ({
+        price: getStripePriceId(item.product),
+        quantity: item.quantity
+      }));
+
+      stripe.redirectToCheckout({
+        lineItems,
+        mode: "payment",
+        successUrl: "https://orderlithophaneprints.com/success.html",
+        cancelUrl: "https://orderlithophaneprints.com/cart.html"
+      }).then(result => {
+        if (result.error) {
+          alert(result.error.message);
+        }
+      });
+    });
+  }
 });

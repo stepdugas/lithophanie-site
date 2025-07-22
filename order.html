@@ -33,29 +33,35 @@
       <h2>Customize Your Order</h2>
       <form id="order-form" class="order-form-flex">
         <div class="form-left">
+          <!-- Name -->
           <label for="name">Your Name:</label>
-          <input type="text" id="name" required />
+          <input type="text" id="name" name="name" required />
 
+          <!-- Email -->
           <label for="email">Your Email:</label>
-          <input type="email" id="email" required />
+          <input type="email" id="email" name="email" required />
 
+          <!-- Product Type -->
           <label for="product">Product:</label>
-          <select id="product" required>
-            <option value="frame">Framed Print – $29.99</option>
-            <option value="nightlight">Nightlight Print – $24.99</option>
-            <option value="tealight">Tea Light Stand – $22.99</option>
-            <option value="box">Box Lamp – $39.99</option>
+          <select id="product" name="product" required>
+            <option value="litho">Regular Lithophane</option>
+            <option value="ledbox">LED Box Stand</option>
           </select>
 
-          <label>
-            <input type="checkbox" id="colorUpgrade" /> Color Photo Upgrade (+$5 or +$10)
-          </label>
+          <!-- Size -->
+          <label for="size">Size:</label>
+          <select id="size" name="size" required>
+            <option value="4x6">4x6</option>
+            <option value="5x7">5x7</option>
+          </select>
 
+          <!-- Quantity -->
           <label for="quantity">Quantity:</label>
-          <input type="number" id="quantity" value="1" min="1" required />
+          <input type="number" id="quantity" name="quantity" value="1" min="1" required />
 
+          <!-- Photo Upload -->
           <label for="imageUpload">Upload your photo:</label>
-          <input type="file" id="imageUpload" accept="image/*" required />
+          <input type="file" id="imageUpload" name="imageUpload" accept="image/*" required />
 
           <button type="submit" class="cta-button">Add to Cart</button>
         </div>
