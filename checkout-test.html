@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stripe Checkout Test</title>
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+  <h1>Stripe Checkout Test</h1>
+  <button id="checkout-button">Checkout</button>
+  <script>
+    const stripe = Stripe("pk_live_51RhaxoEww7sCUoLO2LKbQTajW2LgjYyxAukYAkYRy83PxQfutBKchoVWRLlGnKDsyqlckg3OX1vkISvCseOfHoLi00Q0TQnmxo");
+
+    document.getElementById("checkout-button").addEventListener("click", () => {
+      stripe.redirectToCheckout({
+        lineItems: [
+          { price: "price_1RnkYZEww7sCUoLOqoPDwc9x", quantity: 1 },
+        ],
+        mode: "payment",
+        successUrl: window.location.origin + "/success.html",
+        cancelUrl: window.location.origin + "/cancel.html",
+      }).then((result) => {
+        if (result.error) {
+          alert(result.error.message);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
