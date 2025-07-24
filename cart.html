@@ -2,24 +2,97 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Your Cart – Lithophane Prints</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://js.stripe.com/v3/"></script>
   <script defer src="main.js"></script>
+  <style>
+    .cart-container {
+      max-width: 700px;
+      margin: 20px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background: #f4f4f4;
+    }
+
+    .cart-total {
+      text-align: right;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .remove-btn {
+      background: #c0392b;
+      color: #fff;
+      border: none;
+      padding: 5px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .remove-btn:hover {
+      background: #e74c3c;
+    }
+
+    .checkout-section {
+      text-align: right;
+      margin-top: 20px;
+    }
+
+    .checkout-section button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 4px;
+    }
+  </style>
 </head>
 <body>
   <header>
-    <h1>Your Cart</h1>
-    <nav>
-      <a href="index.html">Continue Shopping</a>
-    </nav>
+    <div class="nav-container">
+      <h1>Your Cart</h1>
+      <nav>
+        <a href="index.html">Continue Shopping</a>
+      </nav>
+    </div>
   </header>
 
-  <main>
-    <ul id="cart-items"></ul>
-    <p><strong>Total:</strong> $<span id="cart-total">0.00</span></p>
-    <button id="checkout-button">Checkout with Stripe</button>
+  <main class="section">
+    <div class="cart-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Photo</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="cart-items"></tbody>
+      </table>
+      <p class="cart-total">Total: $<span id="cart-total">0.00</span></p>
+
+      <div class="checkout-section">
+        <button id="checkout-button" class="cta-button">Checkout with Stripe</button>
+      </div>
+    </div>
   </main>
 </body>
 </html>

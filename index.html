@@ -18,33 +18,51 @@
   <main>
     <h2>Our Products</h2>
     <div class="products">
+
       <div class="product-card">
         <img src="images/lithophane.jpeg" alt="Regular Lithophane 4x6">
         <h3>Regular Lithophane – 4x6</h3>
         <p>$20</p>
-        <button onclick="addToCart('Regular Lithophane – 4x6', 20, 'price_1RnkYZEww7sCUoLOqoPDwc9x')">Add to Cart</button>
+        <label for="photo-0">Upload Photo:</label>
+        <input type="file" id="photo-0" accept="image/*">
+        <button onclick="addProductWithPhoto('Regular Lithophane – 4x6', 20, 'price_1RnkYZEww7sCUoLOqoPDwc9x', 'photo-0')">
+          Add to Cart
+        </button>
       </div>
 
       <div class="product-card">
         <img src="images/lithophane.jpeg" alt="Regular Lithophane 5x7">
         <h3>Regular Lithophane – 5x7</h3>
         <p>$25</p>
-        <button onclick="addToCart('Regular Lithophane – 5x7', 25, 'price_1RnkZ2Eww7sCUoLO76QRCkhP')">Add to Cart</button>
+        <label for="photo-1">Upload Photo:</label>
+        <input type="file" id="photo-1" accept="image/*">
+        <button onclick="addProductWithPhoto('Regular Lithophane – 5x7', 25, 'price_1RnkZ2Eww7sCUoLO76QRCkhP', 'photo-1')">
+          Add to Cart
+        </button>
       </div>
 
       <div class="product-card">
         <img src="images/boxled.jpeg" alt="LED Box Stand 4x6">
         <h3>LED Box Stand – 4x6</h3>
         <p>$35</p>
-        <button onclick="addToCart('LED Box Stand – 4x6', 35, 'price_1RnkXpEww7sCUoLOU8dsVQCf')">Add to Cart</button>
+        <label for="photo-2">Upload Photo:</label>
+        <input type="file" id="photo-2" accept="image/*">
+        <button onclick="addProductWithPhoto('LED Box Stand – 4x6', 35, 'price_1RnkXpEww7sCUoLOU8dsVQCf', 'photo-2')">
+          Add to Cart
+        </button>
       </div>
 
       <div class="product-card">
         <img src="images/boxled.jpeg" alt="LED Box Stand 5x7">
         <h3>LED Box Stand – 5x7</h3>
         <p>$40</p>
-        <button onclick="addToCart('LED Box Stand – 5x7', 40, 'price_1RnkY8Eww7sCUoLOEoInHGO7')">Add to Cart</button>
+        <label for="photo-3">Upload Photo:</label>
+        <input type="file" id="photo-3" accept="image/*">
+        <button onclick="addProductWithPhoto('LED Box Stand – 5x7', 40, 'price_1RnkY8Eww7sCUoLOEoInHGO7', 'photo-3')">
+          Add to Cart
+        </button>
       </div>
+
     </div>
   </main>
 </body>
