@@ -1,24 +1,6 @@
-// === SAMPLE IMAGE ANIMATION ===
-document.addEventListener("DOMContentLoaded", () => {
-  const images = document.querySelectorAll(".samples-grid img");
-
-  if (images.length > 0) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("reveal");
-        }
-      });
-    }, { threshold: 0.2 });
-
-    images.forEach(img => observer.observe(img));
-  }
-});
-
-// === CART PAGE LOGIC ===
 const stripe = Stripe("pk_live_51RhaxoEww7sCUoLO2LKbQTajW2LgjYyxAukYAkYRy83PxQfutBKchoVWRLlGnKDsyqlckg3OX1vkISvCseOfHoLi00Q0TQnmxo");
 
-// Load and save cart
+// --- CART LOGIC ---
 function getCart() {
   return JSON.parse(localStorage.getItem("cart")) || [];
 }
@@ -26,18 +8,19 @@ function saveCart(cart) {
   localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-// Map products to Stripe price IDs
-function getStripePriceId(product) {
-  const priceMap = {
-    "Regular Lithophane – 4x6": "price_1RnkYZEww7sCUoLOqoPDwc9x",
-    "Regular Lithophane – 5x7": "price_1RnkZ2Eww7sCUoLO76QRCkhP",
-    "LED Box Stand – 4x6": "price_1RnkXpEww7sCUoLOU8dsVQCf",
-    "LED Box Stand – 5x7": "price_1RnkY8Eww7sCUoLOEoInHGO7"
-  };
-  return priceMap[product];
+function addToCart(name, price, priceId) {
+  const cart = getCart();
+  const existing = cart.find(item => item.name === name);
+  if (existing) {
+    existing.quantity += 1;
+  } else {
+    cart.push({ name, price, priceId, quantity: 1 });
+  }
+  saveCart(cart);
+  alert(`${name} added to cart!`);
 }
 
-// Render cart items
+// --- RENDER CART ---
 function renderCart() {
   const cartList = document.getElementById("cart-items");
   const totalEl = document.getElementById("cart-total");
@@ -48,42 +31,28 @@ function renderCart() {
   let total = 0;
 
   cart.forEach((item, index) => {
-    const itemTotal = item.price * item.quantity;
-    total += itemTotal;
-
     const li = document.createElement("li");
     li.innerHTML = `
-      <strong>${item.product}</strong><br>
-      Quantity: ${item.quantity} – $${item.price.toFixed(2)} each 
-      <button class="remove-btn" data-index="${index}">Remove</button>
-      <hr>
+      ${item.quantity} × ${item.name} – $${(item.price * item.quantity).toFixed(2)}
+      <button onclick="removeItem(${index})">Remove</button>
     `;
     cartList.appendChild(li);
+    total += item.price * item.quantity;
   });
 
   totalEl.textContent = total.toFixed(2);
-
-  // Add "Remove" button functionality
-  document.querySelectorAll(".remove-btn").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-      const index = parseInt(e.target.getAttribute("data-index"));
-      removeCartItem(index);
-    });
-  });
 }
 
-// Remove item from cart
-function removeCartItem(index) {
+function removeItem(index) {
   const cart = getCart();
   cart.splice(index, 1);
   saveCart(cart);
   renderCart();
 }
 
-// Handle checkout
+// --- STRIPE CHECKOUT ---
 document.addEventListener("DOMContentLoaded", () => {
   renderCart();
-
   const checkoutBtn = document.getElementById("checkout-button");
   if (checkoutBtn) {
     checkoutBtn.addEventListener("click", () => {
@@ -92,21 +61,15 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Your cart is empty!");
         return;
       }
-
       const lineItems = cart.map(item => ({
-        price: getStripePriceId(item.product),
+        price: item.priceId,
         quantity: item.quantity
       }));
-
       stripe.redirectToCheckout({
         lineItems,
         mode: "payment",
-        successUrl: "https://orderlithophaneprints.com/success.html",
-        cancelUrl: "https://orderlithophaneprints.com/cart.html"
-      }).then(result => {
-        if (result.error) {
-          alert(result.error.message);
-        }
+        successUrl: window.location.origin + "/success.html",
+        cancelUrl: window.location.origin + "/cart.html"
       });
     });
   }

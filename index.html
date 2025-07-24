@@ -3,32 +3,49 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Home – Lithophane Prints</title>
+  <title>Shop – Lithophane Prints</title>
   <link rel="stylesheet" href="style.css" />
+  <script defer src="main.js"></script>
 </head>
 <body>
   <header>
-    <div class="nav-container">
-      <h1>Lithophane Prints</h1>
-      <nav>
-        <ul>
-          <li><a href="index.html" target="_blank">Home</a></li>
-          <li><a href="shop.html" target="_blank">Shop</a></li>
-          <li><a href="order.html" target="_blank">Order</a></li>
-          <li><a href="contact.html" target="_blank">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
+    <h1>Lithophane Prints</h1>
+    <nav>
+      <a href="cart.html">Cart</a>
+    </nav>
   </header>
 
   <main>
-    <section id="hero">
-      <div class="hero-content container">
-        <h1>Turn Memories Into Light</h1>
-        <p>We 3D print your photos as beautiful custom lithophanes.</p>
-        <a href="shop.html" class="cta-button" target="_blank">Order Yours Now</a>
+    <h2>Our Products</h2>
+    <div class="products">
+      <div class="product-card">
+        <img src="images/lithophane.jpeg" alt="Regular Lithophane 4x6">
+        <h3>Regular Lithophane – 4x6</h3>
+        <p>$20</p>
+        <button onclick="addToCart('Regular Lithophane – 4x6', 20, 'price_1RnkYZEww7sCUoLOqoPDwc9x')">Add to Cart</button>
       </div>
-    </section>
+
+      <div class="product-card">
+        <img src="images/lithophane.jpeg" alt="Regular Lithophane 5x7">
+        <h3>Regular Lithophane – 5x7</h3>
+        <p>$25</p>
+        <button onclick="addToCart('Regular Lithophane – 5x7', 25, 'price_1RnkZ2Eww7sCUoLO76QRCkhP')">Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <img src="images/boxled.jpeg" alt="LED Box Stand 4x6">
+        <h3>LED Box Stand – 4x6</h3>
+        <p>$35</p>
+        <button onclick="addToCart('LED Box Stand – 4x6', 35, 'price_1RnkXpEww7sCUoLOU8dsVQCf')">Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <img src="images/boxled.jpeg" alt="LED Box Stand 5x7">
+        <h3>LED Box Stand – 5x7</h3>
+        <p>$40</p>
+        <button onclick="addToCart('LED Box Stand – 5x7', 40, 'price_1RnkY8Eww7sCUoLOEoInHGO7')">Add to Cart</button>
+      </div>
+    </div>
   </main>
 </body>
 </html>
