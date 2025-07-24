@@ -17,8 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
     const productVal = document.getElementById("product").value;
-    const sizeVal = document.getElementById("size").value; // New dropdown for 4x6 or 5x7
-    const color = document.getElementById("colorUpgrade")?.checked || false;
+    const sizeVal = document.getElementById("size").value;
     const quantity = parseInt(document.getElementById("quantity").value);
     const imageFile = document.getElementById("imageUpload").files[0];
 
@@ -27,9 +26,9 @@ document.addEventListener("DOMContentLoaded", () => {
       ledbox: "LED Box Stand",
       litho: "Regular Lithophane"
     };
-    const product = productMap[productVal] + " – " + sizeVal;
+    const product = `${productMap[productVal]} – ${sizeVal}`;
 
-    // Set static price logic
+    // Set price
     let price = 0;
     if (productVal === "ledbox") {
       price = sizeVal === "4x6" ? 35 : 40;
@@ -42,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Save to localStorage cart
     const cart = getCart();
-    cart.push({ name, email, product, color, quantity, price });
+    cart.push({ name, email, product, quantity, price });
     saveCart(cart);
 
     // Redirect to cart page

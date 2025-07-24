@@ -2,31 +2,31 @@
 document.addEventListener("DOMContentLoaded", () => {
   const images = document.querySelectorAll(".samples-grid img");
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("reveal");
-      }
-    });
-  }, {
-    threshold: 0.2
-  });
+  if (images.length > 0) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("reveal");
+        }
+      });
+    }, { threshold: 0.2 });
 
-  images.forEach(img => observer.observe(img));
+    images.forEach(img => observer.observe(img));
+  }
 });
 
 // === CART PAGE LOGIC ===
 const stripe = Stripe("pk_live_51RhaxoEww7sCUoLO2LKbQTajW2LgjYyxAukYAkYRy83PxQfutBKchoVWRLlGnKDsyqlckg3OX1vkISvCseOfHoLi00Q0TQnmxo");
 
+// Load and save cart
 function getCart() {
   return JSON.parse(localStorage.getItem("cart")) || [];
 }
-
 function saveCart(cart) {
   localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-// Map current 4 products to Stripe price IDs
+// Map products to Stripe price IDs
 function getStripePriceId(product) {
   const priceMap = {
     "Regular Lithophane – 4x6": "price_1RnkYZEww7sCUoLOqoPDwc9x",
@@ -37,6 +37,7 @@ function getStripePriceId(product) {
   return priceMap[product];
 }
 
+// Render cart items
 function renderCart() {
   const cartList = document.getElementById("cart-items");
   const totalEl = document.getElementById("cart-total");
@@ -62,7 +63,7 @@ function renderCart() {
 
   totalEl.textContent = total.toFixed(2);
 
-  // Attach event listeners for "Remove" buttons
+  // Add "Remove" button functionality
   document.querySelectorAll(".remove-btn").forEach(btn => {
     btn.addEventListener("click", (e) => {
       const index = parseInt(e.target.getAttribute("data-index"));
@@ -71,6 +72,7 @@ function renderCart() {
   });
 }
 
+// Remove item from cart
 function removeCartItem(index) {
   const cart = getCart();
   cart.splice(index, 1);
@@ -78,6 +80,7 @@ function removeCartItem(index) {
   renderCart();
 }
 
+// Handle checkout
 document.addEventListener("DOMContentLoaded", () => {
   renderCart();
 
